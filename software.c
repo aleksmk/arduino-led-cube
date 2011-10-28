@@ -32,9 +32,11 @@ void go_start(void) {
 
 void add_data(uint8_t data, uint8_t addr) {
     PORTC = addr;
-    // Need to test this.
-    PORTD = (2 << addr);
-    PORTB = (addr >> 6);
+
+    // This is better.
+    PORTD = (data << 2);
+    PORTB = (data >> 6);
+
     if (addr == 7)
         PORTC = 0x00;
     else
@@ -54,16 +56,20 @@ int main() {
     PORTC &= ~_BV(PC5); // RST off
 
 
+    add_data(0x55, 0x00);
+
+    //PORTD = 0;
+
     // Test for the *MUX-board*
-    oe(0);
-    add_data(1, 0x00);
+    //oe(0);
+    /* add_data(1, 0x00);
     add_data(2, 0x01);
     add_data(4, 0x02);
     add_data(8, 0x03);
     add_data(16, 0x04);
     add_data(32, 0x05);
     add_data(64, 0x06);
-    add_data(128, 0x07);
+    add_data(128, 0x07); */
 
     //  oe(1);
     //  add_data(0xaa, 0x00);

@@ -1,0 +1,205 @@
+
+software.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000011e  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         00000e58  00000000  00000000  00000174  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      000008a9  00000000  00000000  00000fcc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	ee e1       	ldi	r30, 0x1E	; 30
+  7c:	f1 e0       	ldi	r31, 0x01	; 1
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	a0 30       	cpi	r26, 0x00	; 0
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+
+0000008a <__do_clear_bss>:
+  8a:	11 e0       	ldi	r17, 0x01	; 1
+  8c:	a0 e0       	ldi	r26, 0x00	; 0
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	a0 30       	cpi	r26, 0x00	; 0
+  96:	b1 07       	cpc	r27, r17
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 87 00 	call	0x10e	; 0x10e <main>
+  9e:	0c 94 8d 00 	jmp	0x11a	; 0x11a <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <setup>:
+
+#include <avr/delay.h>
+#include <avr/io.h>
+
+void setup() {
+    DDRC = 0x3F;  // HCF Demux output(3) + OE + RST + CLK
+  a6:	8f e3       	ldi	r24, 0x3F	; 63
+  a8:	87 b9       	out	0x07, r24	; 7
+    DDRD = 0xFC;  // Data bus
+  aa:	8c ef       	ldi	r24, 0xFC	; 252
+  ac:	8a b9       	out	0x0a, r24	; 10
+    DDRB = 0x03;  // Data bus
+  ae:	83 e0       	ldi	r24, 0x03	; 3
+  b0:	84 b9       	out	0x04, r24	; 4
+
+    PORTC = ~0x3F;
+  b2:	80 ec       	ldi	r24, 0xC0	; 192
+  b4:	88 b9       	out	0x08, r24	; 8
+    PORTC |= _BV(PC5); // RST on
+  b6:	45 9a       	sbi	0x08, 5	; 8
+    PORTC |= _BV(PC3); // OE on
+  b8:	43 9a       	sbi	0x08, 3	; 8
+}
+  ba:	08 95       	ret
+
+000000bc <toogle_clk>:
+
+void toogle_clk(void) {
+    PORTC |= _BV(PC4);
+  bc:	44 9a       	sbi	0x08, 4	; 8
+    //_delay_ms(5);
+    PORTC &= ~_BV(PC4);
+  be:	44 98       	cbi	0x08, 4	; 8
+}
+  c0:	08 95       	ret
+
+000000c2 <reset_cd>:
+
+void reset_cd(void) {
+    PORTC |= _BV(PC5);
+  c2:	45 9a       	sbi	0x08, 5	; 8
+    //_delay_ms(5);
+    PORTC &= ~_BV(PC5);
+  c4:	45 98       	cbi	0x08, 5	; 8
+}
+  c6:	08 95       	ret
+
+000000c8 <go_start>:
+
+void go_start(void) {
+    reset_cd();
+  c8:	0e 94 61 00 	call	0xc2	; 0xc2 <reset_cd>
+    toogle_clk();
+  cc:	0e 94 5e 00 	call	0xbc	; 0xbc <toogle_clk>
+}
+  d0:	08 95       	ret
+
+000000d2 <add_data>:
+
+void add_data(uint8_t data, uint8_t addr) {
+    PORTC = addr;
+  d2:	68 b9       	out	0x08, r22	; 8
+
+    // Need to test this.
+    PORTD = (2 << data);
+  d4:	22 e0       	ldi	r18, 0x02	; 2
+  d6:	30 e0       	ldi	r19, 0x00	; 0
+  d8:	08 2e       	mov	r0, r24
+  da:	02 c0       	rjmp	.+4      	; 0xe0 <add_data+0xe>
+  dc:	22 0f       	add	r18, r18
+  de:	33 1f       	adc	r19, r19
+  e0:	0a 94       	dec	r0
+  e2:	e2 f7       	brpl	.-8      	; 0xdc <add_data+0xa>
+  e4:	2b b9       	out	0x0b, r18	; 11
+    PORTB = (data >> 6);
+  e6:	82 95       	swap	r24
+  e8:	86 95       	lsr	r24
+  ea:	86 95       	lsr	r24
+  ec:	83 70       	andi	r24, 0x03	; 3
+  ee:	85 b9       	out	0x05, r24	; 5
+
+    if (addr == 7)
+  f0:	67 30       	cpi	r22, 0x07	; 7
+  f2:	11 f4       	brne	.+4      	; 0xf8 <add_data+0x26>
+        PORTC = 0x00;
+  f4:	18 b8       	out	0x08, r1	; 8
+  f6:	08 95       	ret
+    else
+        PORTC = addr+1;
+  f8:	6f 5f       	subi	r22, 0xFF	; 255
+  fa:	68 b9       	out	0x08, r22	; 8
+  fc:	08 95       	ret
+
+000000fe <oe>:
+}
+
+void oe(uint8_t state) {
+    if (state == 0)
+  fe:	88 23       	and	r24, r24
+ 100:	11 f4       	brne	.+4      	; 0x106 <oe+0x8>
+        PORTC &= ~_BV(PC3);
+ 102:	43 98       	cbi	0x08, 3	; 8
+ 104:	08 95       	ret
+    if (state == 1)
+ 106:	81 30       	cpi	r24, 0x01	; 1
+ 108:	09 f4       	brne	.+2      	; 0x10c <oe+0xe>
+        PORTC |= _BV(PC3);
+ 10a:	43 9a       	sbi	0x08, 3	; 8
+ 10c:	08 95       	ret
+
+0000010e <main>:
+ 10e:	0e 94 53 00 	call	0xa6	; 0xa6 <setup>
+ 112:	45 98       	cbi	0x08, 5	; 8
+ 114:	8f ef       	ldi	r24, 0xFF	; 255
+ 116:	8b b9       	out	0x0b, r24	; 11
+ 118:	ff cf       	rjmp	.-2      	; 0x118 <main+0xa>
+
+0000011a <_exit>:
+ 11a:	f8 94       	cli
+
+0000011c <__stop_program>:
+ 11c:	ff cf       	rjmp	.-2      	; 0x11c <__stop_program>
