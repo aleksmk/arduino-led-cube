@@ -1,0 +1,6 @@
+This is the code that I'm doing for an AVR AtMega328P uC (on a Arduino board)
+that will be used to controll a 8x8x8 LED cube made in the KIKA HackLab in
+Skopje - Macedonia.
+
+The software is in the first stages, full of dirty *hacks* and test blocks that
+I'm using while I'm testing the hardware for the cube
