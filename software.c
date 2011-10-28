@@ -32,15 +32,9 @@ void go_start(void) {
 
 void add_data(uint8_t data, uint8_t addr) {
     PORTC = addr;
-    // Dirty, must fix it!
-    PORTD |= ((1 & data>>0) << PD2);
-    PORTD |= ((1 & data>>1) << PD3);
-    PORTD |= ((1 & data>>2) << PD4);
-    PORTD |= ((1 & data>>3) << PD5);
-    PORTD |= ((1 & data>>4) << PD6);
-    PORTD |= ((1 & data>>5) << PD7);
-    PORTB |= ((1 & data>>6) << PB0);
-    PORTB |= ((1 & data>>7) << PB1);
+    // Need to test this.
+    PORTD = (2 << addr);
+    PORTB = (addr >> 6);
     if (addr == 7)
         PORTC = 0x00;
     else
