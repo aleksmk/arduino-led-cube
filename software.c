@@ -1,6 +1,6 @@
 #define F_CPU 16000000UL
 
-#include <avr/delay.h>
+#include <util/delay.h>
 #include <avr/io.h>
 
 void setup() {
@@ -50,46 +50,37 @@ void oe(uint8_t state) {
         PORTC |= _BV(PC3);
 }
 
+void clean() {
+    for(int i=0; i<8; i++) {
+        add_data(0x00, i);
+    }
+}
+
 
 int main() {
     setup();
     PORTC &= ~_BV(PC5); // RST off
 
+    clean();
+    oe(1);
+    add_data(0xFF, 0x00);
+    add_data(0xFF, 0x01);
+    add_data(0xFF, 0x02);
+    add_data(0xFF, 0x03);
+    add_data(0xFF, 0x04);
+    add_data(0xFF, 0x05);
+    add_data(0xFF, 0x06);
+    add_data(0xFF, 0x07);
+    oe(0);
 
-    add_data(0x55, 0x00);
-
-    //PORTD = 0;
-
-    // Test for the *MUX-board*
-    //oe(0);
-    /* add_data(1, 0x00);
-    add_data(2, 0x01);
-    add_data(4, 0x02);
-    add_data(8, 0x03);
-    add_data(16, 0x04);
-    add_data(32, 0x05);
-    add_data(64, 0x06);
-    add_data(128, 0x07); */
-
-    //  oe(1);
-    //  add_data(0xaa, 0x00);
-    //oe(1);
-
-
-    //PORTC = 0x00;
-
-    //digitalWrite(14, 1);
-
-    while(1) {};
-
-    // Test for the *floor-board*
-    /*while(1) {
-    go_start();
-    _delay_ms(15);
-    for(byte i=0; i<7; i++) {
-        toogle_clk();
-        _delay_ms(15);
+    while(1) {
+        go_start();
+        _delay_ms(2);
+        for(int i=0; i<7; i++) {
+            toogle_clk();
+            _delay_ms(2);
         }
-    }*/
+    }
+
 
 }
