@@ -56,30 +56,60 @@ void clean() {
     }
 }
 
+void add_test_data() {
+    clean();
+    oe(1);
+    //add_data(0b00001111, 0x00);
+    //add_data(0b00001001, 0x01);
+    //add_data(0b00001001, 0x02);
+    //add_data(0b00001111, 0x03);
+    add_data(0xff, 0x00);
+    add_data(0xff, 0x01);
+    add_data(0xff, 0x02);
+    add_data(0xff, 0x03);
+    add_data(0xff, 0x04);
+    add_data(0xff, 0x05);
+    add_data(0xff, 0x06);
+    add_data(0xff, 0x07);
+    oe(0);
+}
+
+void add_xy_data(uint8_t *data) {
+    for (int i=0; i<8; i++) {
+        add_data((uint8_t)&data[i], i);
+    }
+}
+
 
 int main() {
     setup();
     PORTC &= ~_BV(PC5); // RST off
 
-    clean();
-    oe(1);
-    add_data(0xFF, 0x00);
-    add_data(0xFF, 0x01);
-    add_data(0xFF, 0x02);
-    add_data(0xFF, 0x03);
-    add_data(0xFF, 0x04);
-    add_data(0xFF, 0x05);
-    add_data(0xFF, 0x06);
-    add_data(0xFF, 0x07);
-    oe(0);
+
+    uint8_t cube[64];
+
+    cube[0] = 0b00001111;
+    cube[1] = 0b00001001;
+    cube[2] = 0b00001001;
+    cube[3] = 0b00001111;
+    for(int i=4; i<64; i++) {
+        cube[i] = 0;
+    }
+
 
     while(1) {
+        add_test_data();
         go_start();
-        _delay_ms(2);
+        _delay_ms(3);
+        clean();
         for(int i=0; i<7; i++) {
+        //    if (i == 6) {
+                add_test_data();
+          //  }
             toogle_clk();
-            _delay_ms(2);
+            _delay_ms(3);
         }
+        toogle_clk();
     }
 
 
