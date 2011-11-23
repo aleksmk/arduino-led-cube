@@ -2,19 +2,10 @@
 
 #include <util/delay.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
-void reset_floor_counter(void);
-
-void setup(void) {
-    DDRC = 0x3F;        // 0b00111111 HCF Demux output(3) + OE + RST + CLK
-    DDRD = 0xFC;        // 0b11111100 Data bus
-    DDRB = 0x03;        // 0b00000011 Data bus
-
-    PORTC = ~0x3F;      // PORTC = 0b00000000;
-    PORTC |= _BV(PC3);  // OE on - inverting
-
-    reset_floor_counter();
-}
+uint8_t cube[64];
+volatile int addr = 0;
 
 void toggle_floor_clock(void) {
     PORTC |= _BV(PC4);
@@ -32,7 +23,6 @@ void reset_floor_counter(void) { // non-inverting
 void output_data(uint8_t data, uint8_t addr) {
     PORTC = addr;
 
-    // This is better.
     PORTD = (data << 2);
     PORTB = (data >> 6);
 
@@ -55,13 +45,51 @@ void reset_data_buffers(void) {
         output_data(0x00, i);
     }
 }
+/* initialize timer interrupt */
+void init_isr_timers(void) {
+  /* OC1A/OC1B disconnected */
+  TCCR1A = 0;
+  /* CTC mode, top in OCR1A / Timer clock = CLK/1024 */
+  TCCR1B = (1<<WGM12)|(1<<CS12)|(1<<CS10);
+  /* set OCR1A top value for ~ 480 Hz (~ 60 Hz for whole cube) */
+  /*   32 for CPU @ 16 MHz */
+  OCR1A = 20;
+  /* enable Timer/Counter 1 interrupt */
+  TIMSK1 = (1<<OCIE1A);
+}
+
+
+/* timer/counter 1 interrupt handler */
+ISR(TIMER1_COMPA_vect) {
+    if (addr == 0) {
+        reset_floor_counter();
+    }
+    for(int k=0; k<8; k++) {
+        output_data(cube[addr + k], k);
+    }
+    toggle_floor_clock();
+    addr += 8;
+    if (addr == 64) {
+        addr = 0;
+    }
+}
+
+
+void setup_ports(void) {
+    DDRC = 0x3F;        // 0b00111111 HCF Demux output(3) + OE + RST + CLK
+    DDRD = 0xFC;        // 0b11111100 Data bus
+    DDRB = 0x03;        // 0b00000011 Data bus
+
+    PORTC = ~0x3F;      // PORTC = 0b00000000;
+    PORTC |= _BV(PC3);  // OE on - inverting
+}
 
 
 int main(void) {
-    setup();
-
-
-    uint8_t cube[64];
+    setup_ports();
+    reset_floor_counter();
+    init_isr_timers();
+    sei();
 
     cube[0] = 0b00001111;
     cube[1] = 0b00001111;
@@ -89,15 +117,6 @@ int main(void) {
     cube[63] = 0b11110000;
 
     while(1) {
-        reset_floor_counter();
-        // reset_data_buffers();
-        for(int k=0; k<64; k++) {
-            output_data(cube[k], k & 0b0111);
-            if (k % 8 == 7) {
-                toggle_floor_clock();
-                _delay_ms(1);
-            }
-        }
     }
 
 
