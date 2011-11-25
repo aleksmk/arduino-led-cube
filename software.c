@@ -5,7 +5,7 @@
 #include <avr/interrupt.h>
 
 uint8_t cube[64];
-volatile int addr = 0;
+int addr = 0;
 
 void toggle_floor_clock(void) {
     PORTC |= _BV(PC4);
@@ -23,6 +23,7 @@ void reset_floor_counter(void) { // non-inverting
 void output_data(uint8_t data, uint8_t addr) {
     PORTC = addr;
 
+    // send 8 bits on the data bus
     PORTD = (data << 2);
     PORTB = (data >> 6);
 
@@ -53,7 +54,7 @@ void init_isr_timers(void) {
   TCCR1B = (1<<WGM12)|(1<<CS12)|(1<<CS10);
   /* set OCR1A top value for ~ 480 Hz (~ 60 Hz for whole cube) */
   /*   32 for CPU @ 16 MHz */
-  OCR1A = 20;
+  OCR1A = 32;
   /* enable Timer/Counter 1 interrupt */
   TIMSK1 = (1<<OCIE1A);
 }
@@ -89,16 +90,15 @@ int main(void) {
     setup_ports();
     reset_floor_counter();
     init_isr_timers();
-    sei();
+
+    for(int i=0; i<64; i++) {
+    //    cube[i] = 0;
+    }
 
     cube[0] = 0b00001111;
     cube[1] = 0b00001111;
     cube[2] = 0b00001111;
     cube[3] = 0b00001111;
-
-    for(int i=4; i<64; i++) {
-        cube[i] = 0;
-    }
 
     cube[8] = 0b00001111;
     cube[9] = 0b00001001;
@@ -111,11 +111,16 @@ int main(void) {
     cube[18] = 0b00001001;
     cube[19] = 0b00001111;
 
+    cube[24] = 0b00001111;
+    cube[25] = 0b00001111;
+    cube[26] = 0b00001111;
+    cube[27] = 0b00001111;
     cube[60] = 0b11110000;
     cube[61] = 0b10010000;
     cube[62] = 0b10010000;
     cube[63] = 0b11110000;
 
+    sei();
     while(1) {
     }
 
