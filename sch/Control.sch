@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 26 Nov 2011 03:09:35 PM CET
+EESchema Schematic File Version 2  date Sat 03 Dec 2011 05:16:07 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -36,7 +36,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 4
 Title ""
-Date ""
+Date "3 dec 2011"
 Rev ""
 Comp ""
 Comment1 ""
@@ -44,4 +44,205 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	5900 1850 4600 1850
+Wire Wire Line
+	4600 1850 4600 3200
+Wire Wire Line
+	4600 3200 4350 3200
+Wire Wire Line
+	8800 2750 8550 2750
+Wire Wire Line
+	8550 2750 8550 3100
+Wire Wire Line
+	8550 3100 4900 3100
+Wire Wire Line
+	4900 3100 4900 3850
+Wire Wire Line
+	4900 3850 4350 3850
+Wire Wire Line
+	8800 3700 8600 3700
+Wire Wire Line
+	8600 3700 8600 3550
+Wire Wire Line
+	8600 3550 4350 3550
+Wire Wire Line
+	8800 3500 8700 3500
+Wire Wire Line
+	8700 3500 8700 3350
+Wire Wire Line
+	8700 3350 4350 3350
+Wire Wire Line
+	8800 5000 8050 5000
+Wire Wire Line
+	8050 5000 8050 2600
+Wire Wire Line
+	8050 2600 4300 2600
+Wire Wire Line
+	8800 4800 4350 4800
+Wire Wire Line
+	8800 4600 4350 4600
+Wire Wire Line
+	8800 4400 4350 4400
+Wire Wire Line
+	6450 1950 6450 1850
+Wire Wire Line
+	6450 1850 6300 1850
+Connection ~ 5500 1850
+Wire Wire Line
+	2450 2500 1950 2500
+Wire Wire Line
+	1950 2500 1950 2200
+Wire Wire Line
+	1950 5250 1950 4700
+Wire Wire Line
+	1950 4700 2450 4700
+Wire Wire Line
+	2450 4800 1950 4800
+Connection ~ 1950 4800
+Connection ~ 5500 1250
+Wire Wire Line
+	6300 1250 6450 1250
+Wire Wire Line
+	6450 1250 6450 1350
+Wire Wire Line
+	8800 4300 4350 4300
+Wire Wire Line
+	8800 4500 4350 4500
+Wire Wire Line
+	8800 4700 4350 4700
+Wire Wire Line
+	4350 2500 8150 2500
+Wire Wire Line
+	8150 2500 8150 4900
+Wire Wire Line
+	8150 4900 8800 4900
+Wire Wire Line
+	4350 3650 8450 3650
+Wire Wire Line
+	8450 3650 8450 3800
+Wire Wire Line
+	8450 3800 8800 3800
+Wire Wire Line
+	4350 3450 8650 3450
+Wire Wire Line
+	8650 3450 8650 3600
+Wire Wire Line
+	8650 3600 8800 3600
+Wire Wire Line
+	8800 2550 8450 2550
+Wire Wire Line
+	8450 2550 8450 3000
+Wire Wire Line
+	8450 3000 4800 3000
+Wire Wire Line
+	4800 3000 4800 3750
+Wire Wire Line
+	4800 3750 4350 3750
+Wire Wire Line
+	5900 1250 4500 1250
+Wire Wire Line
+	4500 1250 4500 3100
+Wire Wire Line
+	4500 3100 4350 3100
+$Comp
+L CONN_2 LCTRL
+U 1 1 4EDA4A6A
+P 9150 2650
+F 0 "LCTRL" V 9100 2650 40  0000 C CNN
+F 1 "CON3" V 9200 2650 40  0000 C CNN
+	1    9150 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_4 CTRL
+U 1 1 4EDA48CA
+P 9150 3650
+F 0 "CTRL" V 9100 3650 50  0000 C CNN
+F 1 "CON2" V 9200 3650 50  0000 C CNN
+	1    9150 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_8 BUS
+U 1 1 4EDA46E1
+P 9150 4650
+F 0 "BUS" V 9100 4650 60  0000 C CNN
+F 1 "CON1" V 9200 4650 60  0000 C CNN
+	1    9150 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 4EDA45D8
+P 6450 1950
+F 0 "#PWR?" H 6450 1950 30  0001 C CNN
+F 1 "GND" H 6450 1880 30  0001 C CNN
+	1    6450 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 4EDA45D5
+P 6450 1350
+F 0 "#PWR?" H 6450 1350 30  0001 C CNN
+F 1 "GND" H 6450 1280 30  0001 C CNN
+	1    6450 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C2
+U 1 1 4EDA45C6
+P 6100 1850
+F 0 "C2" H 6150 1950 50  0000 L CNN
+F 1 "22p" H 6150 1750 50  0000 L CNN
+	1    6100 1850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L C C1
+U 1 1 4EDA45AF
+P 6100 1250
+F 0 "C1" H 6150 1350 50  0000 L CNN
+F 1 "22p" H 6150 1150 50  0000 L CNN
+	1    6100 1250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CRYSTAL X1
+U 1 1 4EDA456B
+P 5500 1550
+F 0 "X1" H 5500 1700 60  0000 C CNN
+F 1 "16MHz" H 5500 1400 60  0000 C CNN
+	1    5500 1550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L VCC #PWR?
+U 1 1 4EDA451A
+P 1950 2200
+F 0 "#PWR?" H 1950 2300 30  0001 C CNN
+F 1 "VCC" H 1950 2300 30  0000 C CNN
+	1    1950 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 4EDA44FC
+P 1950 5250
+F 0 "#PWR?" H 1950 5250 30  0001 C CNN
+F 1 "GND" H 1950 5180 30  0001 C CNN
+	1    1950 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L ATMEGA328P-P IC?
+U 1 1 4EDA43E4
+P 3350 3600
+F 0 "IC?" H 2650 4850 50  0000 L BNN
+F 1 "ATMEGA328P-P" H 3550 2200 50  0000 L BNN
+F 2 "DIL28" H 2750 2250 50  0001 C CNN
+	1    3350 3600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

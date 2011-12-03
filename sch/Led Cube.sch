@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 26 Nov 2011 03:09:35 PM CET
+EESchema Schematic File Version 2  date Sat 03 Dec 2011 05:16:07 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -36,7 +36,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 4
 Title "8x8x8 Led Cube"
-Date "26 nov 2011"
+Date "3 dec 2011"
 Rev "1.0"
 Comp "KIKA"
 Comment1 ""

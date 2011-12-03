@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 26 Nov 2011 03:09:35 PM CET
+EESchema Schematic File Version 2  date Sat 03 Dec 2011 05:16:07 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -34,9 +34,9 @@ EELAYER 25  0
 EELAYER END
 $Descr A3 16535 11700
 encoding utf-8
-Sheet 3 4
+Sheet 4 4
 Title "Multiplex board"
-Date "26 nov 2011"
+Date "3 dec 2011"
 Rev "1.0"
 Comp ""
 Comment1 ""
